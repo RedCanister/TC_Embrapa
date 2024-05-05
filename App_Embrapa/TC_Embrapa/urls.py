@@ -17,10 +17,13 @@ Including another URLconf
 
 from django.urls import path, include
 from rest_framework import permissions
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.contrib import admin
 from django.urls import path
+from vini_rest import views
+from App_Embrapa.dash_app import app as dash_app
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -28,9 +31,9 @@ schema_view = get_schema_view(
         default_version = "v0.01",
         description = "API para o site teste de consulta de dados sobre" 
                       "vinícolas do Brasil pela Embrapa",
-        terms_of_service = "MIT License",
+        terms_of_service = "",
         contact = openapi.Contact(email = "egrojkayode@gmail.com"),
-        license = openapi.License(name = "")
+        license = openapi.License(name = "MIT License")
     ),
     public = True,
     permission_classes = (permissions.AllowAny,),
@@ -40,5 +43,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui("swagger", cache_timeout = 0), name="schema-swagger-ui"),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout = 0), name = 'schema_redoc'),
-    path('django_plotly_dash/', include('django_plotly_dash.urls'))
+    path('django_plotly_dash/', include('django_plotly_dash.urls')),
+
+    path('import_json/', views.import_json, name='import_json'),
+    path('dashboard_view/', views.dashboard_view, name='dashboard_view'),
+    path('dash_app/', dash_app.server.routes),
 ]
