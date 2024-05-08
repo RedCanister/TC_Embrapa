@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import plotData
-from App_Embrapa.dash_app import app
+from vini_rest.models import plotData
+from .dash_app import app
 import json
 
 # Create your views here.

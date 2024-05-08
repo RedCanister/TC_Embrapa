@@ -1,6 +1,6 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 import pandas as pd
 from dash.dependencies import Input, Output
 from vini_rest.models import plotData
@@ -55,6 +55,7 @@ def update_graph(selected_years, selected_categories):
     
     combined_df = pd.concat(filtered_dfs)
 
+    figure = {}
 
     return figure
 

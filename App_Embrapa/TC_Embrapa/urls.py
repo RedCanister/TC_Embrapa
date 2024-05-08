@@ -17,13 +17,12 @@ Including another URLconf
 
 from django.urls import path, include
 from rest_framework import permissions
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.contrib import admin
 from django.urls import path
 from vini_rest import views
-from App_Embrapa.dash_app import app as dash_app
+from vini_rest.dash_app import app as dash_app
 
 schema_view = get_schema_view(
     openapi.Info(
