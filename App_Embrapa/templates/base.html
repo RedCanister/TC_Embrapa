@@ -9,10 +9,27 @@
 </head>
 <body>
     <h1>{{ title }}</h1>
-    <div id="plotly-div" class="plotly-graph-div">{{ plot_html | safe }}</div>
+    <div id="plotly-div-1" class="plotly-graph-div">{{ plot_html_1 | safe }}</div>
+    <div id="plotly-div-2" class="plotly-graph-div hidden">{{ plot_html_2 | safe }}</div>
     <!-- Inserir botões de troca de gráfico
          2 gráficos por DataFrame
          5 DataFrames na aplicação -->
+    <button onClick="switchPlot()">Switch Plot</button>
+    <script>
+        let currentPlot = 1;
+
+        function switchPlot(){
+            if (currentPlot === 1){
+                document.getElementById('plotly-div-1').classList.add('hidden');
+                document.getElementById('plotly-div-2').classList.remove('hidden');
+                currentPlot = 2;
+            } else {
+                document.getElementById('plotly-div-2').classList.add('hidden');
+                document.getElementById('plotly-div-1').classList.remove('hidden');
+                currentPlot = 1;
+            }
+        }
+    </script>
 
 
 </body>

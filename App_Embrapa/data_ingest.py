@@ -4,8 +4,8 @@ json_path = "C:/Users/andma/OneDrive/Documentos/FIAP/Projeto/Dados_Embrapa/JSON"
 json_ImpExp_type = ["Espumantes", "Suco", "Vinho", "Uva",]
 
 # Comercialização e produção
-json_cm = pd.read_json(json_path + "/Comercio.json")
-json_pd = pd.read_json(json_path + "/Producao.json")
+json_com = pd.read_json(json_path + "/Comercio.json")
+json_prd = pd.read_json(json_path + "/Producao.json")
 
 # Exportação
 json_exp = pd.DataFrame()
@@ -40,4 +40,4 @@ for type in json_proc_type:
     json_proc = pd.concat([json_proc, json_temp])
 
 # Lista de acesso
-json_list = [json_cm, json_pd, json_proc, json_exp, json_imp,]
+json_list = [json_prd, json_proc, json_com, json_imp, json_exp,]

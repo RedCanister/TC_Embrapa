@@ -1,44 +1,114 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import plotly.express as px
-from plots import plotsData
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request
 from data_ingest import json_list
+from plots import plotsData
+import pandas as pd
+import uvicorn
+
 
 app = FastAPI()
-app.moount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-for json in json_list[:3]:
-    json = plotsData.melt_df(json)
+data_list = []
 
-for json in json_list[3:]:
-    json = plotsData.melt_df(json)
+for data in json_list[:3]:
+    data_list.append(plotsData.melt_df(data))
 
+for data in json_list[3:]:
+    data_list.append(plotsData.combine_df(data))
 
+# Páginas de registro e login
 @app.get("/", response_class=HTMLResponse)
 async def read_home(request: Request):
     plot_html = "plot_html"
     return templates.TemplateResponse("base.html", {"request": request, "title": "Home", "plot_html": plot_html})
 
-@app.get("/producao")
-async def page_produ():
-    return 'html'
+# Páginas de visualização de dados
 
-@app.get("/processamento")
-async def page_procs():
-    return 'html'
+# Produção
+@app.get("/producao", response_class=HTMLResponse)
+async def page_produ(request: Request):
+    prod_data = data_list[0]
+    plot_html_1 = plotsData.line(prod_data)
+    plot_html_2 = plotsData.bubble(prod_data)
+    return templates.TemplateResponse(
+            "base.html", 
+            {
+                "request": request, 
+                "title": "Visualização dos dados de produção", 
+                "plot_html_1": plot_html_1,
+                "plot_html_2": plot_html_2,
+            }
+        )
 
-@app.get("/comercializacao")
-async def page_comrc():
-    return 'html'
+# Processamento
+@app.get("/processamento", response_class=HTMLResponse)
+async def page_procs(request: Request):
+    proc_data = data_list[1]
+    plot_html_1 = plotsData.bar(proc_data)
+    plot_html_2 = plotsData.bubble(proc_data)
+    return templates.TemplateResponse(
+            "base.html", 
+            {
+                "request": request, 
+                "title": "Visualização dos dados de processamento", 
+                "plot_html_1": plot_html_1,
+                "plot_html_2": plot_html_2,
+            }
+        )
 
-@app.get("/importacao")
-async def page_impor():
-    return 'html'
+# Comercialização
+@app.get("/comercializacao", response_class=HTMLResponse)
+async def page_comrc(request: Request):
+    comr_data = data_list[2]
+    plot_html_1 = plotsData.bar(comr_data)
+    plot_html_2 = plotsData.bubble(comr_data)
+    return templates.TemplateResponse(
+            "base.html", 
+            {
+                "request": request, 
+                "title": "Visualização dos dados de comercialização", 
+                "plot_html_1": plot_html_1,
+                "plot_html_2": plot_html_2,
+            }
+        )
 
-@app.get("/exportacao")
-async def page_exprt():
-    return 'html'
+# Importação
+@app.get("/importacao", response_class=HTMLResponse)
+async def page_impor(request: Request):
+    impr_data = data_list[3]
+    plot_html_1 = plotsData.bar(impr_data)
+    plot_html_2 = plotsData.bubble(impr_data)
+    return templates.TemplateResponse(
+            "base.html", 
+            {
+                "request": request, 
+                "title": "Visualização dos dados de importação", 
+                "plot_html_1": plot_html_1,
+                "plot_html_2": plot_html_2,
+            }
+        )
+
+# Exportação
+@app.get("/exportacao", response_class=HTMLResponse)
+async def page_exprt(request: Request):
+    expr_data = data_list[4]
+    plot_html_1 = plotsData.bar(expr_data)
+    plot_html_2 = plotsData.bubble(expr_data)
+    return templates.TemplateResponse(
+            "base.html", 
+            {
+                "request": request, 
+                "title": "Visualização dos dados de exportação", 
+                "plot_html_1": plot_html_1,
+                "plot_html_2": plot_html_2,
+            }
+        )
+
+if __name__ == "__main__":
+    uvicorn.run(app, host = "127.0.0.1", port=8000)
+    #print(json_list[0])
