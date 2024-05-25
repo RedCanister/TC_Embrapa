@@ -4,7 +4,6 @@ from fastapi.responses import HTMLResponse
 from fastapi import FastAPI, Request
 from data_ingest import json_list
 from plots import plotsData
-import pandas as pd
 import uvicorn
 
 
@@ -49,7 +48,7 @@ async def page_produ(request: Request):
 @app.get("/processamento", response_class=HTMLResponse)
 async def page_procs(request: Request):
     proc_data = data_list[1]
-    plot_html_1 = plotsData.bar(proc_data)
+    plot_html_1 = plotsData.scatter(proc_data)
     plot_html_2 = plotsData.bubble(proc_data)
     return templates.TemplateResponse(
             "base.html", 
@@ -81,8 +80,8 @@ async def page_comrc(request: Request):
 @app.get("/importacao", response_class=HTMLResponse)
 async def page_impor(request: Request):
     impr_data = data_list[3]
-    plot_html_1 = plotsData.bar(impr_data)
-    plot_html_2 = plotsData.bubble(impr_data)
+    plot_html_1 = plotsData.line_combined(impr_data)
+    plot_html_2 = plotsData.scatter_combined_3d(impr_data)
     return templates.TemplateResponse(
             "base.html", 
             {
@@ -97,8 +96,8 @@ async def page_impor(request: Request):
 @app.get("/exportacao", response_class=HTMLResponse)
 async def page_exprt(request: Request):
     expr_data = data_list[4]
-    plot_html_1 = plotsData.bar(expr_data)
-    plot_html_2 = plotsData.bubble(expr_data)
+    plot_html_1 = plotsData.line_combined(expr_data)
+    plot_html_2 = plotsData.scatter_combined_3d(expr_data)
     return templates.TemplateResponse(
             "base.html", 
             {
