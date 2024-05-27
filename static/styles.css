@@ -1,3 +1,101 @@
 .hidden {
     display: none;
 }
+
+body {
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav_bar {
+    background-color: #333;
+    padding: 1em 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav_div a {
+    text-decoration: none;
+}
+
+.nav-button {
+    background-color: #444;
+    color: white;
+    padding: 1em;
+    margin: 0 0.5em;
+    border-radius: 5px;
+    text-align: center;
+    min-width: 120px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 5em 2em 2em; /* Adjusted for fixed navbar */
+    margin-top: 60px; /* Space for fixed navbar */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.plotly-div-1,
+.plotly-div-2 {
+    background-color: #000000;
+    border-radius: 8px;
+    padding: 2em;
+    margin: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Optional: Set a max-width for the content */
+    width: 100%; /* Take up full width of the container */
+    text-align: center;
+}
+
+
+/*
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.header-container h1 {
+    margin: 0;
+}
+
+.header-container button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.header-container button:hover {
+    background-color: #555;
+}
+*/
+h1 {
+    color: #333;
+}

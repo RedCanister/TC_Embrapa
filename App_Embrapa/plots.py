@@ -1,14 +1,9 @@
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import plotly.express as px
 import pandas as pd
 
 class plotsData():
-    """
-    plot_bgcolor
-    paper_bgcolor
-    font_color
-    """
+    # PRÉ-PROCESSAMENTO DE DADOS
     
     # Para uso com conjuntos de dados com 2 colunas categóricas no início
     def melt_df(df):
@@ -25,46 +20,6 @@ class plotsData():
 
         return melted_df
 
-
-    def line(df: pd.DataFrame, ):
-
-        fig = px.line(df, x = 'Year', y = 'Value', color = 'Produto', line_group = 'Produto', facet_col = 'Categoria')
-        
-        plot_html = fig.to_html(full_html = False, include_plotlyjs = 'cdn')
-        return plot_html
-
-
-    def bar(df: pd.DataFrame, ):
-
-        fig = px.bar(df, x = 'Year', y = 'Value', color = 'Produto',)
-        
-        plot_html = fig.to_html(full_html = False, include_plotlyjs = 'cdn')
-        return plot_html
-
-
-    def scatter(df: pd.DataFrame, ):
-
-        fig = px.scatter(df, x = 'Year', y = 'Value', color = 'Produto',)
-        
-        plot_html = fig.to_html(full_html = False, include_plotlyjs = 'cdn')
-        return plot_html
-
-
-    def bubble(df: pd.DataFrame, ):
-                
-        fig = px.scatter(df, x = 'Year', y = 'Value', color = 'Produto', size = 'Value',)
-        
-        plot_html = fig.to_html(full_html = False, include_plotlyjs = 'cdn')
-        return plot_html
-
-    """
-    def line(dataframe: pd.DataFrame, ):
-        fig = px.line(dataframe, x = 'Year', y = 'Value', color = 'Produto', line_group = 'Produto', facet_col = 'Categoria')
-        
-        plot_html = fig.to_html(full_html = False, include_plotlyjs = 'cdn')
-        return plot_html
-    """
-        
     # Para uso com conjuntos de dados com 1 coluna categórica no início
     def combine_df(df: pd.DataFrame):
 
@@ -91,19 +46,93 @@ class plotsData():
 
         return df_combined
 
+    # FORMATAÇÃO DE GRÁFICOS
+
+    def format_plot(fig):
+        fig.update_layout(
+            showlegend = True,
+            autosize = True,
+            plot_bgcolor = 'rgba(30, 30, 30, 0.9)',  # Set background color to a darker shade of grey
+            paper_bgcolor = 'rgba(40, 40, 40, 0.9)',
+            legend = dict(
+                orientation = "h",
+                yanchor = "bottom",
+                y = -1.0,  # Adjust this value as needed
+                xanchor = "center",
+                x = 0.5,
+                title_text = 'Legend',  # Optional: add a title to the legend
+                bgcolor = 'rgba(50, 50, 50, 0.9)',  # Set background color for legend
+                bordercolor = 'rgba(0, 0, 0, 0.5)',  # Set border color for legend
+                borderwidth = 1,  # Set border width for legend
+                traceorder = "normal",  # Set trace order to normal
+                itemsizing = 'trace',  # Minimizable legend
+                itemclick = "toggleothers",
+                valign = "bottom",
+            ),
+            margin = dict(t = 40, b = 60),
+            height = 800,
+            font=dict(
+                color='rgb(220, 220, 220)'  # Set font color to a lighter shade of grey
+            ),
+            xaxis=dict(
+                gridcolor='rgba(80, 80, 80, 0.5)',
+                gridwidth=1  
+            ),
+            yaxis=dict(
+                gridcolor='rgba(80, 80, 80, 0.5)',
+                gridwidth=1  
+            )
+        ),
+        
+
+        return fig
+    
+    # VISUALIZAÇÃO DE DADOS
+
+    def line(df: pd.DataFrame, ):
+
+        fig = px.line(df, x = 'Year', y = 'Value', color = 'Produto', line_group = 'Produto', facet_col = 'Categoria')
+        
+        plot_html = plotsData.format_plot(fig).to_html(full_html = False, include_plotlyjs = 'cdn')
+
+        return plot_html
+
+
+    def bar(df: pd.DataFrame, ):
+
+        fig = px.bar(df, x = 'Year', y = 'Value', color = 'Produto',)
+        
+        plot_html = plotsData.format_plot(fig).to_html(full_html = False, include_plotlyjs = 'cdn')
+
+        return plot_html
+
+
+    def scatter(df: pd.DataFrame, ):
+
+        fig = px.scatter(df, x = 'Year', y = 'Value', color = 'Produto',)
+        
+        plot_html = plotsData.format_plot(fig).to_html(full_html = False, include_plotlyjs = 'cdn')
+        
+        return plot_html
+
+
+    def bubble(df: pd.DataFrame, ):
+                
+        fig = px.scatter(df, x = 'Year', y = 'Value', color = 'Produto', size = 'Value',)
+        
+        plot_html = plotsData.format_plot(fig).to_html(full_html = False, include_plotlyjs = 'cdn')
+        
+        return plot_html
+
+
     def line_combined(df: pd.DataFrame):
-        """fig = make_subplots(rows = 1, cols = 2, shared_yaxes = True, subplot_titles = (
-                    "Kilos Distribution",
-                    "Money Distribution"
-                )
-            )"""
-        #fig = go.Figure()
 
         fig = px.scatter(df, x='Kilos', y='Money', color='Pais', title='Scatter Plot of Kilos vs Money by Country')
 
         fig.update_layout(barmode = 'overlay', showlegend = True)
         
-        plot_html = fig.to_html(full_html = False, include_plotlyjs = 'cdn')
+        plot_html = plotsData.format_plot(fig).to_html(full_html = False, include_plotlyjs = 'cdn')
+        
         return plot_html
 
 
@@ -119,6 +148,7 @@ class plotsData():
                         name = f'Money - {pais}', yaxis = 'y2')
             )
 
+        """
         # Update layout to add secondary y-axis
         fig_combined_scatter.update_layout(
             yaxis2 = dict(
@@ -139,17 +169,19 @@ class plotsData():
                 bordercolor = 'Black',
                 borderwidth = 2
             ),
-            margin = dict(l = 0, r = 50, b = 0, t = 50)
-        )
+            margin = dict(l = 0, r = 50, b = 0, t = 50),
+        )"""
 
-        plot_html = fig_combined_scatter.to_html(full_html = False, include_plotlyjs = 'cdn')
+        plot_html = plotsData.format_plot(fig_combined_scatter).to_html(full_html = False, include_plotlyjs = 'cdn')
+        
         return plot_html
 
     def scatter_combined_3d(dataframe: pd.DataFrame):
         # 3D scatter plot for Kilos and Money over Years
         fig_3d_scatter = px.scatter_3d(dataframe, x = 'Year', y = 'Kilos', z = 'Money', color = 'Pais', 
-                                    title = '3D Scatter Plot of Kilos and Money Over Years')
+                                    title = '3D Scatter Plot of Kilos and Money Over Years', height = 800)
 
+        """
         # Update layout for better readability
         fig_3d_scatter.update_layout(
             width = 1000,
@@ -163,7 +195,7 @@ class plotsData():
                 )
             ),
             margin=dict(l = 0, r = 0, b = 0, t = 40)
-        )
+        )"""
 
         # Customize marker size and color
         fig_3d_scatter.update_traces(
@@ -171,6 +203,8 @@ class plotsData():
             selector = dict(mode = 'markers')
         )
 
-        plot_html = fig_3d_scatter.to_html(full_html = False, include_plotlyjs = 'cdn')
+        plot_html = plotsData.format_plot(fig_3d_scatter).to_html(full_html = False, include_plotlyjs = 'cdn')
+        
+        
         return plot_html
     

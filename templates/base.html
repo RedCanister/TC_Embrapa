@@ -8,13 +8,27 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>{{ title }}</h1>
-    <div id="plotly-div-1" class="plotly-graph-div">{{ plot_html_1 | safe }}</div>
-    <div id="plotly-div-2" class="plotly-graph-div hidden">{{ plot_html_2 | safe }}</div>
-    <!-- Inserir botões de troca de gráfico
-         2 gráficos por DataFrame
-         5 DataFrames na aplicação -->
-    <button onClick="switchPlot()">Switch Plot</button>
+    <nav class="nav_bar">
+        <div class="nav_div">
+            <a href="/producao"><div class="nav-button">Produção</div></a>
+            <a href="/processamento"><div class="nav-button">Processamento</div></a>
+            <a href="/comercializacao"><div class="nav-button">Comercialização</div></a>
+            <a href="/importacao"><div class="nav-button">Importação</div></a>
+            <a href="/exportacao"><div class="nav-button">Exportação</div></a>
+        </div>
+    </nav>
+
+    <div class="header-container">
+        <h1>{{ title }}</h1>
+        <button id="toggle-plot-btn" onClick="switchPlot()">Trocar visualização</button>
+        <button id="toggle-legend-btn" onClick="switchLegend()">Mostrar legenda</button>
+    </div>
+
+    <div id = "container">
+        <div id="plotly-div-1" class="plotly-graph-div">{{ plot_html_1 | safe }}</div>
+        <div id="plotly-div-2" class="plotly-graph-div hidden">{{ plot_html_2 | safe }}</div>
+    </div>
+
     <script>
         let currentPlot = 1;
 
@@ -29,8 +43,24 @@
                 currentPlot = 1;
             }
         }
-    </script>
 
+        function switchLegend() {
+            let legend1 = document.getElementById('plotly-div-1').querySelector('.legend');
+            let legend2 = document.getElementById('plotly-div-2').querySelector('.legend');
+
+            if(legend1.style.display === 'none') {
+                legend1.style.display = 'block';
+                legend2.style.display = 'block';
+                document.getElementById('toggle-legend-btn').textContent = 'Ocultar legenda';
+            } else {
+                legend1.style.display = 'none';
+                legend2.style.display = 'none';
+                document.getElementById('toggle-legend-btn').textContent = 'Mostrar legenda';
+            }
+        }
+        
+
+    </script>
 
 </body>
 </html>
