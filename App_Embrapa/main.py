@@ -95,7 +95,7 @@ async def page_produ(request: Request, current_user: User = Depends(get_current_
 
 # Processamento
 @app.get("/processamento", response_class=HTMLResponse)
-async def page_procs(request: Request):
+async def page_procs(request: Request, current_user: User = Depends(get_current_user)):
     proc_data = data_list[1]
     plot_html_1 = plotsData.scatter(proc_data)
     plot_html_2 = plotsData.bubble(proc_data)
@@ -111,7 +111,7 @@ async def page_procs(request: Request):
 
 # Comercialização
 @app.get("/comercializacao", response_class=HTMLResponse)
-async def page_comrc(request: Request):
+async def page_comrc(request: Request, current_user: User = Depends(get_current_user)):
     comr_data = data_list[2]
     plot_html_1 = plotsData.bar(comr_data)
     plot_html_2 = plotsData.bubble(comr_data)
@@ -127,7 +127,7 @@ async def page_comrc(request: Request):
 
 # Importação
 @app.get("/importacao", response_class=HTMLResponse)
-async def page_impor(request: Request):
+async def page_impor(request: Request, current_user: User = Depends(get_current_user)):
     impr_data = data_list[3]
     plot_html_1 = plotsData.line_combined(impr_data)
     plot_html_2 = plotsData.scatter_combined_3d(impr_data)
@@ -143,7 +143,7 @@ async def page_impor(request: Request):
 
 # Exportação
 @app.get("/exportacao", response_class=HTMLResponse)
-async def page_exprt(request: Request):
+async def page_exprt(request: Request, current_user: User = Depends(get_current_user)):
     expr_data = data_list[4]
     plot_html_1 = plotsData.line_combined(expr_data)
     plot_html_2 = plotsData.scatter_combined_3d(expr_data)
