@@ -2,16 +2,17 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Formulário de Login</title>
+    <title>Formulário de Cadastro</title>
 </head>
 <body>
-    <h2>Login</h2>
+    <h2>Cadastro </h2>
     <form id="loginForm" onsubmit="cadastraUsuario(event)">
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email"><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br><br>
-        <button type="submit">Login</button>
+        <button type="submit">Cadastro</button>
+        <button href="/page">Login</a></button>
     </form>
 
     <script>
@@ -25,8 +26,8 @@
                 if (request.status >= 200 && request.status < 300) {
                     const data = JSON.parse(request.responseText)
                     alert(data.message)
-                    if (data.message === "Login successful") {
-                        window.location.href = "/visualization"
+                    if (data.message === "User created successfully") {
+                        window.location.href = "/page"
                     }
                 } else {
                     const data = JSON.parse(request.responseText);
@@ -37,7 +38,7 @@
 
         function cadastraUsuario(event) {
             event.preventDefault()
-            let url = "/login"
+            let url = "/register"
             let email = document.getElementById("email").value
             let password = document.getElementById("password").value
 

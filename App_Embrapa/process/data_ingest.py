@@ -1,8 +1,10 @@
 import pandas as pd
 from pathlib import Path
 
-json_path = Path(__file__).parent.parent.resolve() / 'Data_Embrapa' / 'Dados_Embrapa' / 'JSON'
+json_path = Path(__file__).parent.parent.parent.resolve() / 'Data_Embrapa' / 'Dados_Embrapa' / 'JSON'
 json_ImpExp_type = ["Espumantes", "Suco", "Vinho", "Uva",]
+
+# C:\Users\andma\OneDrive\Documentos\FIAP\Projeto\TC_Embrapa\App_Embrapa\process\data_ingest.py
 
 # Comercialização e produção
 json_com = pd.read_json(json_path / "Comercio.json")

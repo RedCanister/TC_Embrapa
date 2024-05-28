@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, EmailStr
 from passlib.context import CryptContext
 import jwt
+import uvicorn
 from utils.models import Queries  # Importa a classe Queries do módulo utils.models
 from datetime import datetime, timedelta, timezone
 
@@ -55,6 +56,11 @@ async def get_login_page(request: Request):
     """Endpoint para retornar a página de login."""
     return templates.TemplateResponse("pagina.html", {"request": request})
 
+@app.get("/cadastro", response_class=HTMLResponse)
+async def get_login_page(request: Request):
+    """Endpoint para retornar a página de cadastro."""
+    return templates.TemplateResponse("cadastro.html", {"request": request})
+
 @app.post("/register")
 async def register(user: UserCreate):
     """Endpoint para registrar um novo usuário."""
@@ -105,3 +111,6 @@ async def get_current_user(request: Request):
 async def visualization(current_user: User = Depends(get_current_user)):
     """Endpoint para visualização com autenticação."""
     return {"message": "Visualização"}  # Retorna mensagem de visualização
+
+if __name__ == "__main__":
+    uvicorn.run(app, host = "127.0.0.1", port=6000)
