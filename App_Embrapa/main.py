@@ -9,12 +9,14 @@ from utils.authentication import (
     create_access_token, 
     get_current_user, 
     get_password, 
-    verify_password
+    verify_password,
+    login_html,
+    cadastro_html
 )
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from process.data_ingest import json_list
+from process.data_ingest import data_list
 from utils.plots import plotsData
 from utils.models import Queries
 
@@ -25,27 +27,27 @@ import uvicorn
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-# Importando os dados
-data_list = []
-
-for data in json_list[:3]:
-    data_list.append(plotsData.melt_df(data))
-
-for data in json_list[3:]:
-    data_list.append(plotsData.combine_df(data))
-
+    
 # Páginas de registro e login
-@app.get("/", response_class=HTMLResponse)
+
+@app.get("/")
+async def root():
+    """Endpoint raiz que redireciona para a página."""
+    return RedirectResponse("/page")
+
+# Página de login
+@app.get("/page", response_class=HTMLResponse)
 async def get_login_page(request: Request):
     """Endpoint para retornar a página de login."""
     return templates.TemplateResponse("pagina.html", {"request": request})
 
+# Página de cadastro do usuário
 @app.get("/cadastro", response_class=HTMLResponse)
 async def get_login_page(request: Request):
     """Endpoint para retornar a página de cadastro."""
     return templates.TemplateResponse("cadastro.html", {"request": request})
 
+# Redirecionamento do usuário para o registro no banco de dados
 @app.post("/register")
 async def register(user: UserCreate):
     """Endpoint para registrar um novo usuário."""
@@ -59,6 +61,7 @@ async def register(user: UserCreate):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error")  # Retorna erro se houver um problema no servidor
     return {"message": "User created successfully", "user": {"email": db_user[0]}}
 
+# Redirecionamento para a validação do login do usuário
 @app.post("/login")
 async def login(user: UserCreate, response: Response):
     """Endpoint para realizar login de usuário."""
@@ -81,7 +84,7 @@ async def page_produ(request: Request, current_user: User = Depends(get_current_
     plot_html_1 = plotsData.line(prod_data)
     plot_html_2 = plotsData.bubble(prod_data)
     return templates.TemplateResponse(
-            "base.html", 
+            "base_plots.html", 
             {
                 "request": request, 
                 "title": "Visualização dos dados de produção", 
@@ -97,7 +100,7 @@ async def page_procs(request: Request):
     plot_html_1 = plotsData.scatter(proc_data)
     plot_html_2 = plotsData.bubble(proc_data)
     return templates.TemplateResponse(
-            "base.html", 
+            "base_plots.html", 
             {
                 "request": request, 
                 "title": "Visualização dos dados de processamento", 
@@ -113,7 +116,7 @@ async def page_comrc(request: Request):
     plot_html_1 = plotsData.bar(comr_data)
     plot_html_2 = plotsData.bubble(comr_data)
     return templates.TemplateResponse(
-            "base.html", 
+            "base_plots.html", 
             {
                 "request": request, 
                 "title": "Visualização dos dados de comercialização", 
@@ -129,7 +132,7 @@ async def page_impor(request: Request):
     plot_html_1 = plotsData.line_combined(impr_data)
     plot_html_2 = plotsData.scatter_combined_3d(impr_data)
     return templates.TemplateResponse(
-            "base.html", 
+            "base_plots.html", 
             {
                 "request": request, 
                 "title": "Visualização dos dados de importação", 
@@ -145,7 +148,7 @@ async def page_exprt(request: Request):
     plot_html_1 = plotsData.line_combined(expr_data)
     plot_html_2 = plotsData.scatter_combined_3d(expr_data)
     return templates.TemplateResponse(
-            "base.html", 
+            "base_plots.html", 
             {
                 "request": request, 
                 "title": "Visualização dos dados de exportação", 

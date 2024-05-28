@@ -50,9 +50,9 @@ class plotsData():
 
     def format_plot(fig):
         fig.update_layout(
-            showlegend = True,
             autosize = True,
-            plot_bgcolor = 'rgba(30, 30, 30, 0.9)',  # Set background color to a darker shade of grey
+            showlegend = True,
+            plot_bgcolor = 'rgba(40, 40, 40, 0.9)',  # Set background color to a darker shade of grey
             paper_bgcolor = 'rgba(40, 40, 40, 0.9)',
             legend = dict(
                 orientation = "h",
@@ -69,21 +69,22 @@ class plotsData():
                 itemclick = "toggleothers",
                 valign = "bottom",
             ),
-            margin = dict(t = 40, b = 60),
-            height = 800,
+            height = 700,
+            width = 1800,
             font=dict(
                 color='rgb(220, 220, 220)'  # Set font color to a lighter shade of grey
             ),
-            xaxis=dict(
-                gridcolor='rgba(80, 80, 80, 0.5)',
-                gridwidth=1  
-            ),
-            yaxis=dict(
-                gridcolor='rgba(80, 80, 80, 0.5)',
-                gridwidth=1  
-            )
-        ),
-        
+        )
+
+        fig.update_xaxes(
+            gridcolor='rgba(80, 80, 80, 0.5)',
+            gridwidth=1
+        )
+
+        fig.update_yaxes(
+            gridcolor='rgba(80, 80, 80, 0.5)',
+            gridwidth=1
+        )
 
         return fig
     

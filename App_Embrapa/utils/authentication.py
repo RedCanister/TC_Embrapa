@@ -12,6 +12,28 @@ SECRET_KEY = "voce_escolhe"  # Chave secreta para codificar/descodificar tokens 
 ALGORITHM = "HS256"  # Algoritmo de criptografia utilizado para os tokens JWT
 ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Tempo de expiração em minutos
 
+login_html = """
+    <form id="loginForm" onsubmit="cadastraUsuario(event)">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button class="nav-button" type="submit">Login</button>
+        <button class="nav-button" href="/cadastro">Cadastro</a></button>
+    </form>
+"""
+
+cadastro_html = """
+    <form id="loginForm" onsubmit="cadastraUsuario(event)">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button class="nav-button" type="submit">Cadastro</button>
+        <button class="nav-button" href="/">Login</a></button>
+    </form>
+"""
+
 class UserCreate(BaseModel):
     """Modelo de dados para criação de usuário."""
     email: EmailStr  # Campo de e-mail validado

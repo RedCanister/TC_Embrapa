@@ -7,19 +7,10 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-
-    <div class = "content">
-        <h2>Cadastro </h2>
-        <div class="form-container">
-            <form id="loginForm" onsubmit="cadastraUsuario(event)" >
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email"><br>
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password"><br><br>
-                <button class="nav-button" type="submit">Cadastro</button>
-                <button class="nav-button" ><a href="/page">Voltar para o Login</a></button>
-            </form>
-        </div>
+    <h2>Cadastro </h2>
+    <div class="form-container">
+        {{ user_form | safe }}
+        
     </div>
 
     <script>

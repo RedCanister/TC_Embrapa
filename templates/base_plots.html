@@ -18,16 +18,22 @@
         </div>
     </nav>
 
-    <div class="header-container">
+    <div class="button-container">
         <h1>{{ title }}</h1>
-        <button id="toggle-plot-btn" onClick="switchPlot()">Trocar visualização</button>
-        <button id="toggle-legend-btn" onClick="switchLegend()">Mostrar legenda</button>
+        <button id="toggle-plot-btn" class="nav-button" onClick="switchPlot()">Trocar visualização</button>
+        <button id="toggle-legend-btn" class="nav-button" onClick="switchLegend()">Mostrar legenda</button>
     </div>
 
-    <div id = "container">
+    <div class="container">
         <div id="plotly-div-1" class="plotly-graph-div">{{ plot_html_1 | safe }}</div>
         <div id="plotly-div-2" class="plotly-graph-div hidden">{{ plot_html_2 | safe }}</div>
     </div>
+
+    <footer>
+        <div class="final">
+            &copy; Jorge Kayodê e Octavio Ruiz. Todos os direitos reservados.
+        </div>
+    </footer>
 
     <script>
         let currentPlot = 1;
@@ -59,7 +65,6 @@
             }
         }
         
-
     </script>
 
 </body>

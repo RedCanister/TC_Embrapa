@@ -1,5 +1,7 @@
-import pandas as pd
+from utils.plots import plotsData
 from pathlib import Path
+import pandas as pd
+
 
 json_path = Path(__file__).parent.parent.parent.resolve() / 'Data_Embrapa' / 'Dados_Embrapa' / 'JSON'
 json_ImpExp_type = ["Espumantes", "Suco", "Vinho", "Uva",]
@@ -45,4 +47,12 @@ for type in json_proc_type:
 # Lista de acesso
 json_list = [json_prd, json_proc, json_com, json_imp, json_exp,]
 
-#print(json_list[0])
+data_list = []
+
+for data in json_list[:3]:
+    data_list.append(plotsData.melt_df(data))
+
+for data in json_list[3:]:
+    data_list.append(plotsData.combine_df(data))
+
+
