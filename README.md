@@ -99,8 +99,8 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
 
 ### Diagramas
 
-#### Diagrama de classes
+#### Diagrama de classes: É usado para representar a estrutura estática de um sistema, mostrando as classes do sistema, seus atributos, métodos e os relacionamentos entre as classes.
 ![Diagrama de classes](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Imagens/Diagramas/Diagrama%20de%20classes.jpg)
 
-#### Diagrama de casos de uso
+#### Diagrama de casos de uso: É usado para representar as interações entre um sistema e seus atores (usuários ou outros sistemas) do ponto de vista das funcionalidades que o sistema oferece. 
 ![Diagrama de casos de uso](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Imagens/Diagramas/Diagrama%20de%20caso%20de%20uso.jpg)
