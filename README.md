@@ -51,7 +51,7 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
     1. Execute o arquivo "utils/make.py" ele gerará o "clientes_database.db".
 
 5. Baixe os dados da Embrapa:
-    1. Baixe o [TrabalhoFiap - Feedback.ipynb](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Data_Embrapa/Dados_Embrapa/TrabalhoFiap%20-%20Feedback.ipynb) e execute-o para baixar os arquivos de dados.
+    1. Baixe o [TrabalhoFiap - Feedback.ipynb](https://github.com/RedCanister/TC_Embrapa/blob/master/Data_Embrapa/TrabalhoFiap%20-%20Feedback.ipynb) e execute-o para baixar os arquivos de dados.
     2. Após o download, mova os arquivos para o diretório `TC_Embrapa/Data_Embrapa/Dados_Embrapa/JSON`.
 
 6. Inicie a aplicação:
