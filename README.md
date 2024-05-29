@@ -85,3 +85,22 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
 - Registro de novos usuários.
 - Login de usuários registrados.
 - Visualização de dados extraídos do site da Embrapa em diferentes formatos de gráficos.
+
+## Exemplos
+
+### Gráficos
+
+#### Gráfico de bolhas
+![Gráfico de bolhas](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Imagens/Gr%C3%A1ficos/Bubble_Producao.png)
+
+#### Gráfico de linahs por categoria
+![Gráfico de linhas por categoria](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Imagens/Gr%C3%A1ficos/Line_Facet_Producao.png)
+
+
+### Diagramas
+
+#### Diagrama de classes
+![Diagrama de classes](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Imagens/Diagramas/Diagrama%20de%20classes.jpg)
+
+#### Diagrama de casos de uso
+![Diagrama de casos de uso](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Imagens/Diagramas/Diagrama%20de%20caso%20de%20uso.jpg)
