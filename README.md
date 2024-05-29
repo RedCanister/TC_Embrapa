@@ -43,16 +43,15 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
 
 3. Instale as dependências:
     ```bash
+    cd App_Embrapa
     pip install -r requirements.txt
     ```
 
-4. Configure o banco de dados:
-    ```bash
-    python -c "from utils.make import engine; from sqlalchemy import MetaData; metadata = MetaData(bind=engine); metadata.create_all()"
-    ```
+4. Configure o banco de dados (caso o projeto não tenha o arquivo "database/clientes_database.db"):
+    1. Execute o arquivo "utils/make.py" ele gerará o "clientes_database.db".
 
 5. Baixe os dados da Embrapa:
-    1. Baixe o [notebook.ipynb](link) e execute-o para baixar os arquivos de dados.
+    1. Baixe o [TrabalhoFiap - Feedback.ipynb](https://raw.githubusercontent.com/RedCanister/TC_Embrapa/master/Data_Embrapa/Dados_Embrapa/TrabalhoFiap%20-%20Feedback.ipynb) e execute-o para baixar os arquivos de dados.
     2. Após o download, mova os arquivos para o diretório `TC_Embrapa/Data_Embrapa/Dados_Embrapa/JSON`.
 
 6. Inicie a aplicação:
@@ -60,67 +59,25 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
     uvicorn main:app --reload
     ```
 
+7. Em caso de problemas durante o processo de login que resultem em um erro relacionado ao módulo JWT, você pode executar o seguinte código para garantir que a instalação do JWT esteja correta:
+    ```bash
+    pip install --upgrade --force-reinstall PyJWT
+    ```
+
 ## Uso
 
-### Endpoints principais
+## Endpoints principais
 
-#### Registro de Usuário
-
-- **Endpoint**: `/register`
-- **Método**: `POST`
-- **Descrição**: Registra um novo usuário.
-
-- **Exemplo de Request**:
-    ```json
-    {
-        "email": "usuario@exemplo.com",
-        "password": "senha_secreta"
-    }
-    ```
-
-- **Exemplo de Response**:
-    ```json
-    {
-        "message": "User created successfully",
-        "user": {
-            "email": "usuario@exemplo.com"
-        }
-    }
-    ```
-
-#### Login de Usuário
-
-- **Endpoint**: `/login`
-- **Método**: `POST`
-- **Descrição**: Realiza login do usuário.
-
-- **Exemplo de Request**:
-    ```json
-    {
-        "email": "usuario@exemplo.com",
-        "password": "senha_secreta"
-    }
-    ```
-
-- **Exemplo de Response**:
-    ```json
-    {
-        "message": "Login successful"
-    }
-    ```
-
-#### Visualização de Dados
-
-- **Endpoint**: `/visualization`
-- **Método**: `GET`
-- **Descrição**: Retorna a visualização dos dados (autenticação necessária).
-
-- **Exemplo de Response**:
-    ```json
-    {
-        "message": "Visualização"
-    }
-    ```
+- `GET /`: Redireciona para a página de login.
+- `GET /page`: Retorna a página de login.
+- `GET /cadastro`: Retorna a página de cadastro.
+- `POST /register`: Registra um novo usuário.
+- `POST /login`: Realiza login de usuário.
+- `GET /producao`: Visualiza dados de produção.
+- `GET /processamento`: Visualiza dados de processamento.
+- `GET /comercializacao`: Visualiza dados de comercialização.
+- `GET /importacao`: Visualiza dados de importação.
+- `GET /exportacao`: Visualiza dados de exportação.
 
 ## Funcionalidades
 
@@ -128,7 +85,3 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
 - Registro de novos usuários.
 - Login de usuários registrados.
 - Visualização de dados extraídos do site da Embrapa em diferentes formatos de gráficos.
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT.
