@@ -32,6 +32,15 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
     source venv/bin/activate  # No Windows use `venv\Scripts\activate`
     ```
 
+    ```
+    Para usuários do VSCode, é possível utilizar o atalho Ctrl + Shift + P para realizar a instalação rápido do ambiente virtual.
+    Na barra de pesquise escreva:
+    1. Python: Create Environment
+    2. Venv
+    3. A Versão mais recente do Python
+    4. Selecione o requirements.txt 
+    ```
+
 3. Instale as dependências:
     ```bash
     pip install -r requirements.txt
