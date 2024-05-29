@@ -1,17 +1,12 @@
-from datetime import timedelta
 from fastapi import FastAPI, Request, HTTPException, Depends, status, Response
 from utils.authentication import (
-    ACCESS_TOKEN_EXPIRE_MINUTES, 
-    ALGORITHM, 
-    SECRET_KEY, 
+    ACCESS_TOKEN_EXPIRE_MINUTES,  
     UserCreate, 
     User, 
     create_access_token, 
     get_current_user, 
     get_password, 
     verify_password,
-    login_html,
-    cadastro_html
 )
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -19,14 +14,22 @@ from fastapi.staticfiles import StaticFiles
 from process.data_ingest import data_list
 from utils.plots import plotsData
 from utils.models import Queries
+from datetime import timedelta
 
 import uvicorn
+import os
 
 
 # Inicializando o aplicativo e carregando os arquivos
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+
+static_dir = os.path.join(cur_dir, "static")
+templates_dir = os.path.join(cur_dir, "templates")
+
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+templates = Jinja2Templates(directory=templates_dir)
     
 # Páginas de registro e login
 
