@@ -15,7 +15,7 @@ TC_Embrapa é uma API desenvolvida com FastAPI que oferece endpoints para autent
 
 ### Pré-requisitos
 
-- Python 3.7 ou superior
+- Python 3.12 ou superior
 - SQLite
 
 ### Passos para instalação
